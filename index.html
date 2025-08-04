@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Malla Interactiva - Arquitectura 2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .ciclo {
+      margin-bottom: 30px;
+    }
+    .ciclo h2 {
+      color: #006699;
+    }
+    .curso {
+      display: inline-block;
+      padding: 10px 15px;
+      margin: 5px;
+      border: 2px solid #555;
+      border-radius: 8px;
+      background-color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .curso.aprobado {
+      background-color: #a3e4a3;
+      text-decoration: line-through;
+      color: #666;
+    }
+    .curso.bloqueado {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla Interactiva de Arquitectura 2025</h1>
+  <div id="malla"></div>
+
+  <script>
+    const cursos = [
+      { id: 'arqu330', nombre: 'Taller de Diseño Básico', ciclo: 1, prerequisitos: [] },
+      { id: 'arqu332', nombre: 'Taller de Diseño Básico I', ciclo: 2, prerequisitos: ['arqu330'] },
+      { id: 'arqu334', nombre: 'Taller de Diseño Intermedio II', ciclo: 3, prerequisitos: ['arqu332'] },
+      { id: 'arqu337', nombre: 'Taller de Diseño Intermedio III', ciclo: 4, prerequisitos: ['arqu334'] },
+      { id: 'arqu341', nombre: 'Taller de Diseño Intermedio IV', ciclo: 5, prerequisitos: ['arqu337'] },
+      { id: 'arqu346', nombre: 'Taller de Diseño Avanzado V', ciclo: 6, prerequisitos: ['arqu341'] },
+      { id: 'arqu353', nombre: 'Taller de Diseño Avanzado VI', ciclo: 7, prerequisitos: ['arqu346'] },
+      { id: 'arqu357', nombre: 'Taller de Diseño Avanzado VII', ciclo: 8, prerequisitos: ['arqu353'] },
+      { id: 'arqu368', nombre: 'Trabajo de Fin de Carrera I', ciclo: 9, prerequisitos: ['arqu357'] },
+      { id: 'arqu378', nombre: 'Trabajo de Fin de Carrera II', ciclo: 10, prerequisitos: ['arqu368'] }
+    ];
+
+    const mallaDiv = document.getElementById('malla');
+
+    for (let ciclo = 1; ciclo <= 10; ciclo++) {
+      const divCiclo = document.createElement('div');
+      divCiclo.classList.add('ciclo');
+      divCiclo.innerHTML = `<h2>Ciclo ${ciclo}</h2>`;
+      cursos.filter(c => c.ciclo === ciclo).forEach(curso => {
+        const btn = document.createElement('div');
+        btn.classList.add('curso');
+        btn.id = curso.id;
+        btn.textContent = curso.nombre;
+        btn.dataset.prerequisitos = JSON.stringify(curso.prerequisitos);
+        divCiclo.appendChild(btn);
+      });
+      mallaDiv.appendChild(divCiclo);
+    }
+
+    function actualizarEstado() {
+      document.querySelectorAll('.curso').forEach(curso => {
+        const prereqs = JSON.parse(curso.dataset.prerequisitos);
+        const aprobado = curso.classList.contains('aprobado');
+        if (prereqs.length > 0 && !aprobado) {
+          const habilitado = prereqs.every(id => document.getElementById(id).classList.contains('aprobado'));
+          curso.classList.toggle('bloqueado', !habilitado);
+        }
+      });
+    }
+
+    document.querySelectorAll('.curso').forEach(curso => {
+      curso.addEventListener('click', () => {
+        curso.classList.toggle('aprobado');
+        actualizarEstado();
+      });
+    });
+
+    actualizarEstado();
+  </script>
+</body>
+</html>
