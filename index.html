@@ -17,7 +17,7 @@
       margin-bottom: 30px;
     }
     .ciclo h2 {
-      color: #006699;
+      color: #000;
     }
     .curso {
       display: inline-block;
@@ -46,16 +46,71 @@
 
   <script>
     const cursos = [
+      // Ciclo 1
       { id: 'arqu330', nombre: 'Taller de Diseño Básico', ciclo: 1, prerequisitos: [] },
+      { id: 'arqu328', nombre: 'Geometría Descriptiva', ciclo: 1, prerequisitos: [] },
+      { id: 'cien744', nombre: 'Matemática', ciclo: 1, prerequisitos: [] },
+      { id: 'huma1179', nombre: 'Comunicación I', ciclo: 1, prerequisitos: [] },
+
+      // Ciclo 2
       { id: 'arqu332', nombre: 'Taller de Diseño Básico I', ciclo: 2, prerequisitos: ['arqu330'] },
+      { id: 'huma1180', nombre: 'Comunicación II', ciclo: 2, prerequisitos: ['huma1179'] },
+      { id: 'cien775', nombre: 'Física', ciclo: 2, prerequisitos: [] },
+      { id: 'arqu280', nombre: 'Orientación Estructural y Constructiva', ciclo: 2, prerequisitos: [] },
+      { id: 'huma900', nombre: 'Metodología del Aprendizaje Universitario', ciclo: 2, prerequisitos: [] },
+
+      // Ciclo 3
       { id: 'arqu334', nombre: 'Taller de Diseño Intermedio II', ciclo: 3, prerequisitos: ['arqu332'] },
+      { id: 'arqu335', nombre: 'Tecnología I', ciclo: 3, prerequisitos: [] },
+      { id: 'arqu338', nombre: 'Construcción I', ciclo: 3, prerequisitos: [] },
+      { id: 'arqu343', nombre: 'Estructura I', ciclo: 3, prerequisitos: [] },
+      { id: 'arqu329', nombre: 'Representación Arquitectónica I', ciclo: 3, prerequisitos: [] },
+      { id: 'arqu134', nombre: 'Historia de la Arquitectura I', ciclo: 3, prerequisitos: [] },
+
+      // Ciclo 4
       { id: 'arqu337', nombre: 'Taller de Diseño Intermedio III', ciclo: 4, prerequisitos: ['arqu334'] },
+      { id: 'arqu342', nombre: 'Tecnología II', ciclo: 4, prerequisitos: ['arqu335'] },
+      { id: 'arqu347', nombre: 'Construcción II', ciclo: 4, prerequisitos: ['arqu338'] },
+      { id: 'arqu354', nombre: 'Estructura II', ciclo: 4, prerequisitos: ['arqu343'] },
+      { id: 'arqu331', nombre: 'Representación Arquitectónica II', ciclo: 4, prerequisitos: ['arqu329'] },
+      { id: 'arqu136', nombre: 'Historia de la Arquitectura II', ciclo: 4, prerequisitos: ['arqu134'] },
+
+      // Ciclo 5
       { id: 'arqu341', nombre: 'Taller de Diseño Intermedio IV', ciclo: 5, prerequisitos: ['arqu337'] },
+      { id: 'arqu345', nombre: 'Taller de Urbanismo III', ciclo: 5, prerequisitos: [] },
+      { id: 'arqu355', nombre: 'Construcción III', ciclo: 5, prerequisitos: ['arqu347'] },
+      { id: 'arqu136', nombre: 'Historia de la Arquitectura III', ciclo: 5, prerequisitos: ['arqu136'] },
+      { id: 'huma1181', nombre: 'Filosofía y Pensamiento Crítico', ciclo: 5, prerequisitos: [] },
+
+      // Ciclo 6
       { id: 'arqu346', nombre: 'Taller de Diseño Avanzado V', ciclo: 6, prerequisitos: ['arqu341'] },
+      { id: 'arqu340', nombre: 'Taller de Urbanismo II', ciclo: 6, prerequisitos: [] },
+      { id: 'arqu360', nombre: 'Taller Preprofesional de Construcción Sostenible', ciclo: 6, prerequisitos: ['arqu355'] },
+      { id: 'arqu344', nombre: 'Historia de la Arquitectura IV', ciclo: 6, prerequisitos: ['arqu136'] },
+      { id: 'huma1182', nombre: 'Realidad Nacional y Global', ciclo: 6, prerequisitos: [] },
+
+      // Ciclo 7
       { id: 'arqu353', nombre: 'Taller de Diseño Avanzado VI', ciclo: 7, prerequisitos: ['arqu346'] },
+      { id: 'arqu336', nombre: 'Taller de Urbanismo I', ciclo: 7, prerequisitos: [] },
+      { id: 'arqu370', nombre: 'Gestión de Proyectos', ciclo: 7, prerequisitos: [] },
+      { id: 'arqu356', nombre: 'Proyecto de Investigación', ciclo: 7, prerequisitos: [] },
+      { id: 'huma1183', nombre: 'Pensamiento de Antenor Orrego', ciclo: 7, prerequisitos: [] },
+
+      // Ciclo 8
       { id: 'arqu357', nombre: 'Taller de Diseño Avanzado VII', ciclo: 8, prerequisitos: ['arqu353'] },
+      { id: 'arqu339', nombre: 'Modelado BIM', ciclo: 8, prerequisitos: [] },
+      { id: 'arqu333', nombre: 'Presentación de Proyectos', ciclo: 8, prerequisitos: [] },
+      { id: 'huma1184', nombre: 'Ética, Ciudadanía y Discapacidad', ciclo: 8, prerequisitos: [] },
+
+      // Ciclo 9
       { id: 'arqu368', nombre: 'Trabajo de Fin de Carrera I', ciclo: 9, prerequisitos: ['arqu357'] },
-      { id: 'arqu378', nombre: 'Trabajo de Fin de Carrera II', ciclo: 10, prerequisitos: ['arqu368'] }
+      { id: 'arqu367', nombre: 'Tesis I', ciclo: 9, prerequisitos: [] },
+      { id: 'arqu359', nombre: 'Taller Preprofesional de Patrimonio Construido', ciclo: 9, prerequisitos: [] },
+
+      // Ciclo 10
+      { id: 'arqu378', nombre: 'Trabajo de Fin de Carrera II', ciclo: 10, prerequisitos: ['arqu368'] },
+      { id: 'arqu377', nombre: 'Tesis II', ciclo: 10, prerequisitos: ['arqu367'] },
+      { id: 'arqu369', nombre: 'Práctica Pre Profesional Supervisada', ciclo: 10, prerequisitos: [] },
     ];
 
     const mallaDiv = document.getElementById('malla');
@@ -63,7 +118,7 @@
     for (let ciclo = 1; ciclo <= 10; ciclo++) {
       const divCiclo = document.createElement('div');
       divCiclo.classList.add('ciclo');
-      divCiclo.innerHTML = `<h2>Ciclo ${ciclo}</h2>`;
+      divCiclo.innerHTML = `<h2>${ciclo}° Ciclo</h2>`;
       cursos.filter(c => c.ciclo === ciclo).forEach(curso => {
         const btn = document.createElement('div');
         btn.classList.add('curso');
@@ -82,6 +137,8 @@
         if (prereqs.length > 0 && !aprobado) {
           const habilitado = prereqs.every(id => document.getElementById(id).classList.contains('aprobado'));
           curso.classList.toggle('bloqueado', !habilitado);
+        } else if (prereqs.length === 0) {
+          curso.classList.remove('bloqueado');
         }
       });
     }
